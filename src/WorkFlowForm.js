@@ -6,7 +6,7 @@ import { useWorkFlowContext } from './context/WorkFlowContext';
 // TODO: use id instead
 // TODO: use schema in json instead of enum
 const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
-  const {selectedInput = {}} = useWorkFlowContext();
+  const {selectedInput = {}, isSubmitButtonDisabled} = useWorkFlowContext();
   const [fields, setFields] = useState([]);
   const [options, setOptions] = useState({
     [QUEUE_STRING]: {
@@ -62,26 +62,31 @@ const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
   }, [getOptions])
 
   return (
-    <div>
-      {
-        fields ?
-        fields.map(({type, endpoint, name}) => (
-          <div key={type}>
-              <span>{name}: </span>
-              <select onChange={handleInputChange(type)} value={selectedInput[type] || 0}>
-              <option value="0" disabled>Choose here</option>
-                {
-                  options[endpoint][type] && options[endpoint][type].length ? 
-                  options[endpoint][type].map((option) => {
-                    return <option key={option.id} value={option.id}>{option.name}</option>
-                  }) :
-                  null
-                }
-              </select>
-            </div>
-        )) :
-        null
-      }
+    <div className='workflowForm'>
+      <div className='workflowFieldsContainer'>
+        {
+          fields ?
+          fields.map(({type, endpoint, name}) => (
+            <div className='workflowField' key={type}>
+                <span className='workflowFormSpan'>{name}: </span>
+                <select className='workflowFormSelect' onChange={handleInputChange(type)} value={selectedInput[type] || 0}>
+                <option value="0" disabled>Choose here</option>
+                  {
+                    options[endpoint][type] && options[endpoint][type].length ? 
+                    options[endpoint][type].map((option) => {
+                      return <option key={option.id} value={option.id}>{option.name}</option>
+                    }) :
+                    null
+                  }
+                </select>
+              </div>
+          )) :
+          null
+        }
+      </div>
+      <div className='submitButtonContainer'>
+        <button className='submitButton' disabled={isSubmitButtonDisabled}>Submit</button>
+      </div>
     </div>
   )
 };

@@ -8,7 +8,7 @@ const PhotoTypes = () => {
 
   return (
     <div className='dropDown'>
-      <span>Photo type code: </span>
+      <span>Photo Type Code: </span>
       <select id='photoType' name='photoType' onChange={handleSelectPhotoType} value={selectedPhotoType.id || 0}>
         <option value="0" disabled>Choose here</option>
         {photoTypes.map(({name, id}) => <option key={id} value={id}>{name}</option>)}

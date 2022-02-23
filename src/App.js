@@ -16,7 +16,6 @@ const App = () => {
     submitNewWorkFlow,
     updateSelectedInput,
     selectedWorkFlowType,
-    isSubmitButtonDisabled,
   } = useWorkFlowContext();
 
   const handleFormSubmit = useCallback(async (e) => {
@@ -46,7 +45,6 @@ const App = () => {
           selectedWorkFlowId={selectedWorkFlowType.id}
           handleInputChange={handleInputChange}
         />
-        <button disabled={isSubmitButtonDisabled}>thing</button>
       </form>
     </div>
   );

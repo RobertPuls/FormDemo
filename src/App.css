@@ -1,14 +1,72 @@
+
 .dropdownContainer {
-  width: 40%;
+  width: 91rem;
+}
+
+.workflowForm {
+  height: 25rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 1rem;
+  width: 50rem;
+  padding-top: 1rem;
+}
+
+.workflowFormSpan {
+  display: inline-block;
+  width: 18%;
+  margin: 0.5rem;
+  text-align: end;
+}
+
+.workflowFormSelect {
+  padding: 0.5rem;
+  width: 60%;
+  border-radius: 5px;
 }
 
 .dropDown {
   margin: 1rem;
 }
+
 .dropDown > span {
-  width: 20%;
+  display: inline-block;
+  width: 13%;
+  margin-right: 0.5rem;
+  text-align: end;
 }
 
 .dropDown > select {
-  width: 80%;
+  width: 40%;
+  padding: 0.4rem;
+  border-radius: 4px;
+}
+
+.workflowField {
+  margin-bottom: 0.5rem;
+}
+
+.submitButtonContainer {
+  display: flex;
+  justify-content: end;
+  border-top: 1px solid black;
+  height: 4rem;
+}
+
+.workflowFieldsContainer {
+  height: 21rem;
+}
+
+.submitButton {
+  margin: 0.5rem;
+  background-color: #4141ef;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.submitButton:disabled {
+  background-color: #8d8dff;
 }

@@ -10,7 +10,7 @@ const WorkFlowTypes = () => {
 
   return (
     <div className='dropDown'>
-      <span>Workflow type: </span>
+      <span>Workflow Type: </span>
       <select id='WorkFlowType' name='WorkFlowType' onChange={handleSelectedWorkFlowType} value={selectedWorkFlowType.id || 0}>
       <option value="0" disabled>Choose here</option>
         {workFlowTypes.map(({name, id}) => (
