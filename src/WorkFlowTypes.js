@@ -1,11 +1,19 @@
-const WorkFlowTypes = ({
-  workFlowsTypes,
-  handleSelectedWorkFlowType
-}) => (
+import { useCallback, useEffect } from 'react';
+import { useWorkFlowContext } from './context/WorkFlowContext';
+
+// TODO: make this and photoTypes on reuseable file
+
+const WorkFlowTypes = () => {
+  const {workFlowTypes = [], updateSelectedWorkFlowType, selectedWorkFlowType ={}} = useWorkFlowContext();
+
+  const handleSelectedWorkFlowType = useCallback((e) => updateSelectedWorkFlowType(e.currentTarget.value), [updateSelectedWorkFlowType]);
+
+  return (
     <div className='dropDown'>
       <span>Workflow type: </span>
-      <select id='WorkFlowType' name='WorkFlowType' onChange={handleSelectedWorkFlowType}>
-        {workFlowsTypes.map(({name, id}) => (
+      <select id='WorkFlowType' name='WorkFlowType' onChange={handleSelectedWorkFlowType} value={selectedWorkFlowType.id || 0}>
+      <option value="0" disabled>Choose here</option>
+        {workFlowTypes.map(({name, id}) => (
           <option
             key={id}
             value={id}
@@ -15,6 +23,7 @@ const WorkFlowTypes = ({
         ))}
       </select>
     </div>
-  )
+  );
+};
 
 export default WorkFlowTypes;

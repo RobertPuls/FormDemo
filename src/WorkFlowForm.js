@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { SCHEMA, SEGMENTATION_STRING, IDENTIFICATION_STRING, QUEUE_STRING, MODEL_STRING, TAGGING_STRING } from './utils/const';
 import { fetchModels, fetchTags } from './utils/fetcher';
+import { useWorkFlowContext } from './context/WorkFlowContext';
 
 // TODO: use id instead
 // TODO: use schema in json instead of enum
 const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
+  const {selectedInput = {}} = useWorkFlowContext();
   const [fields, setFields] = useState([]);
   const [options, setOptions] = useState({
     [QUEUE_STRING]: {
@@ -35,7 +37,6 @@ const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
     //     identificationModels.push(model)
     //   }
     // })
-    console.log(segmentationModels.data)
     setOptions({
       [QUEUE_STRING]: {
         [TAGGING_STRING]: tags.data
@@ -52,12 +53,12 @@ const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
   }, [selectedWorkFlowId])
 
   // TODO: figure out why this rerenders and sets fields to undefined
-  // useEffect(() => {
-  //   console.log(fields)
-  // })
+  useEffect(() => {
+    console.log(fields)
+  })
 
   useEffect(() => {
-    getOptions()
+    getOptions();
   }, [getOptions])
 
   return (
@@ -66,17 +67,18 @@ const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
         fields ?
         fields.map(({type, endpoint, name}) => (
           <div key={type}>
-            <span>{name}: </span>
-            <select onChange={handleInputChange(type)}>
-              {
-                options[endpoint][type] && options[endpoint][type].length ? 
-                options[endpoint][type].map((option) => {
-                  return <option key={option.id} value={option.id}>{option.name}</option>
-                }) :
-                null
-              }
-            </select>
-          </div>
+              <span>{name}: </span>
+              <select onChange={handleInputChange(type)} value={selectedInput[type] || 0}>
+              <option value="0" disabled>Choose here</option>
+                {
+                  options[endpoint][type] && options[endpoint][type].length ? 
+                  options[endpoint][type].map((option) => {
+                    return <option key={option.id} value={option.id}>{option.name}</option>
+                  }) :
+                  null
+                }
+              </select>
+            </div>
         )) :
         null
       }
