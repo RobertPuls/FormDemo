@@ -10,11 +10,11 @@ export const MODELS_URL = `${BASE_URL}models`;
 
 export const TAGGING_URL = `${BASE_URL}tagging_queues`;
 
-export const SEGMENTATION_STRING = 'segmentation';
+export const SEGMENTATION_STRING = 'segmentationModelId';
 
-export const IDENTIFICATION_STRING = 'identification';
+export const IDENTIFICATION_STRING = 'identificationModelId';
 
-export const TAGGING_STRING = 'tagging system';
+export const TAGGING_STRING = 'taggingSystemQueueId';
 
 export const QUEUE_STRING = 'queue'
 
@@ -24,16 +24,19 @@ export const MODEL_STRING = 'model'
 const SEGMENTATION_TYPE = {
   type: SEGMENTATION_STRING,
   endpoint: MODEL_STRING,
+  name: 'segmentation'
 }
 
 const IDENTIFICATION_TYPE = {
   type: IDENTIFICATION_STRING,
   endpoint: MODEL_STRING,
+  name: 'identification'
 }
 
 const TAGGING_TYPE = {
   type: TAGGING_STRING,
   endpoint: QUEUE_STRING,
+  name: 'tagging system'
 }
 
 export const SCHEMA = {

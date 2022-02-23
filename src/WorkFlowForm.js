@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SCHEMA, SEGMENTATION_STRING, IDENTIFICATION_STRING, QUEUE_STRING, MODEL_STRING, TAGGING_STRING } from './utils/const';
 import { fetchModels, fetchTags } from './utils/fetcher';
 
 // TODO: use id instead
 // TODO: use schema in json instead of enum
-const WorkFlowForm = ({selectedWorkFlowId}) => {
+const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
   const [fields, setFields] = useState([]);
   const [options, setOptions] = useState({
     [QUEUE_STRING]: {
@@ -15,6 +15,7 @@ const WorkFlowForm = ({selectedWorkFlowId}) => {
       [IDENTIFICATION_STRING]: [],
     }
   });
+
   // const [models, setModels] = useState({
   //   [SEGMENTATION_STRING]: [],
   //   [IDENTIFICATION_STRING]: [],
@@ -23,8 +24,9 @@ const WorkFlowForm = ({selectedWorkFlowId}) => {
   // const segmentationModels = useMemo(() => models.filter((model) => model.type === SEGMENTATION_STRING), [models]);
   // const identificationModels = useMemo(() => models.filter((model) => model.type === IDENTIFICATION_STRING), [models]);
   const getOptions = useCallback(async () => {
-    const segmentationModels = await fetchModels(SEGMENTATION_STRING);
-    const identificationModels = await fetchModels(IDENTIFICATION_STRING);
+    // TODO put segmentation string in const
+    const segmentationModels = await fetchModels('segmentation');
+    const identificationModels = await fetchModels('identification');
     const tags = await fetchTags();
     // modelsData.data.forEach((model) => {
     //   if (model.type === SEGMENTATION_STRING) {
@@ -33,7 +35,7 @@ const WorkFlowForm = ({selectedWorkFlowId}) => {
     //     identificationModels.push(model)
     //   }
     // })
-    console.log(tags.data)
+    console.log(segmentationModels.data)
     setOptions({
       [QUEUE_STRING]: {
         [TAGGING_STRING]: tags.data
@@ -62,15 +64,15 @@ const WorkFlowForm = ({selectedWorkFlowId}) => {
     <div>
       {
         fields ?
-        fields.map(({type, endpoint}) => (
+        fields.map(({type, endpoint, name}) => (
           <div key={type}>
-            <span>{type}: </span>
-            <select>
+            <span>{name}: </span>
+            <select onChange={handleInputChange(type)}>
               {
                 options[endpoint][type] && options[endpoint][type].length ? 
-                options[endpoint][type].map((option) => (
-                  <option key={option.id}>{option.name}</option>
-                )) :
+                options[endpoint][type].map((option) => {
+                  return <option key={option.id} value={option.id}>{option.name}</option>
+                }) :
                 null
               }
             </select>

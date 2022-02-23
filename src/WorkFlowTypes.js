@@ -1,8 +1,7 @@
 const WorkFlowTypes = ({
   workFlowsTypes,
   handleSelectedWorkFlowType
-}) => {
-  return (
+}) => (
     <div className='dropDown'>
       <span>Workflow type: </span>
       <select id='WorkFlowType' name='WorkFlowType' onChange={handleSelectedWorkFlowType}>
@@ -17,6 +16,5 @@ const WorkFlowTypes = ({
       </select>
     </div>
   )
-}
 
 export default WorkFlowTypes;
