@@ -1,38 +1,14 @@
-.App {
-  text-align: center;
+.dropdownContainer {
+  width: 40%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.dropDown {
+  margin: 1rem;
+}
+.dropDown > span {
+  width: 20%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dropDown > select {
+  width: 80%;
 }
