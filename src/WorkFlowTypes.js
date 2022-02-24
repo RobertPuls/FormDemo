@@ -1,7 +1,5 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useWorkFlowContext } from './context/WorkFlowContext';
-
-// TODO: make this and photoTypes on reuseable file
 
 const WorkFlowTypes = () => {
   const {workFlowTypes = [], updateSelectedWorkFlowType, selectedWorkFlowType ={}} = useWorkFlowContext();

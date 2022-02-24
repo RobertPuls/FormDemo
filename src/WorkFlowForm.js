@@ -4,8 +4,6 @@ import { fetchModels, fetchTags } from './utils/fetcher';
 import { useWorkFlowContext } from './context/WorkFlowContext';
 import { buildModelQuery } from './utils/queryBuilder';
 
-// TODO: use id instead
-// TODO: use schema in json instead of enum
 const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
   const {selectedInput = {}, isSubmitButtonDisabled} = useWorkFlowContext();
   const [fields, setFields] = useState([]);

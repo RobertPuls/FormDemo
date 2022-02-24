@@ -1,4 +1,3 @@
-// TODO: Rename file
 import { WORKFLOWS_URL, PHOTO_TYPES_URL, WORKFLOWS_TYPES_URL, MODELS_URL, TAGGING_URL } from './const';
 
 const baseFetch = async (url, query = '') => {
@@ -11,7 +10,6 @@ const baseFetch = async (url, query = '') => {
   }
 }
 
-// TODO: merge with functino above
 const basePost = async (url, data = {}) => {
   try {
     const res = await fetch(url, {
@@ -34,8 +32,6 @@ export const fetchWorkFlows = async () => baseFetch(WORKFLOWS_URL);
 export const fetchPhotoTypes = async () => baseFetch(PHOTO_TYPES_URL);
 
 export const fetchWorkFlowTypes = async () => baseFetch(WORKFLOWS_TYPES_URL);
-
-// export const fetchModels = async (search) => baseFetch(MODELS_URL, search ? `?search=${search}` : undefined);
 
 export const fetchModels = async (query) => baseFetch(MODELS_URL, query);
 

@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState, useEffect, useMemo } from 'react';
+import React, { useContext, useCallback, useState, useMemo } from 'react';
 import { SCHEMA } from '../utils/const';
 import { fetchPhotoTypes, fetchWorkFlowTypes, postWorkflow } from '../utils/fetcher';
 import { checkIfObjectEmpty } from '../utils/helpers';
