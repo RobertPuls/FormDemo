@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { SCHEMA, SEGMENTATION_STRING, IDENTIFICATION_STRING, QUEUE_STRING, MODEL_STRING, TAGGING_STRING } from './utils/const';
 import { fetchModels, fetchTags } from './utils/fetcher';
 import { useWorkFlowContext } from './context/WorkFlowContext';
+import { buildModelQuery } from './utils/queryBuilder';
 
 // TODO: use id instead
 // TODO: use schema in json instead of enum
@@ -18,32 +19,44 @@ const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
     }
   });
 
-  // const [models, setModels] = useState({
-  //   [SEGMENTATION_STRING]: [],
-  //   [IDENTIFICATION_STRING]: [],
-  // });
-  // TODO: put this all in one so that we only have to loop throught this once
-  // const segmentationModels = useMemo(() => models.filter((model) => model.type === SEGMENTATION_STRING), [models]);
-  // const identificationModels = useMemo(() => models.filter((model) => model.type === IDENTIFICATION_STRING), [models]);
   const getOptions = useCallback(async () => {
-    // TODO put segmentation string in const
-    const segmentationModels = await fetchModels('segmentation');
-    const identificationModels = await fetchModels('identification');
-    const tags = await fetchTags();
-    // modelsData.data.forEach((model) => {
-    //   if (model.type === SEGMENTATION_STRING) {
-    //     segmentationModels.push(model)
-    //   } else if (model.type === identificationModels) {
-    //     identificationModels.push(model)
-    //   }
-    // })
+    const tags = [];
+    let hasMoreTagPages = true;
+    let tagPageNum = 1;
+    while (hasMoreTagPages) {
+      const tagsData = await fetchTags(buildModelQuery({pageNumber: tagPageNum}));
+      tags.push(...tagsData.data);
+      hasMoreTagPages = tagsData.paging.hasMore;
+      tagPageNum++
+    };
+
+    const models = []
+    let hasMoreModelPages = true;
+    let modelPageNum = 1;
+    while (hasMoreModelPages) {
+      const modelsData = await fetchModels(buildModelQuery({pageNumber: modelPageNum}));
+      models.push(...modelsData.data);
+      hasMoreModelPages = modelsData.paging.hasMore;
+      modelPageNum++
+    };
+
+    const segmentationModels = []
+    const identificationModels = [];
+    models.forEach((model) => {
+      if (model.type === 'segmentation') {
+        segmentationModels.push(model)
+      } else if (model.type === 'identification') {
+        identificationModels.push(model)
+      }
+    })
+    
     setOptions({
       [QUEUE_STRING]: {
-        [TAGGING_STRING]: tags.data
+        [TAGGING_STRING]: tags
       },
       [MODEL_STRING]: {
-        [SEGMENTATION_STRING]: segmentationModels.data,
-        [IDENTIFICATION_STRING]: identificationModels.data,
+        [SEGMENTATION_STRING]: segmentationModels,
+        [IDENTIFICATION_STRING]: identificationModels,
       }
     });
   }, [])
@@ -51,11 +64,6 @@ const WorkFlowForm = ({selectedWorkFlowId, handleInputChange}) => {
   useEffect(() => {
     setFields(SCHEMA[selectedWorkFlowId])
   }, [selectedWorkFlowId])
-
-  // TODO: figure out why this rerenders and sets fields to undefined
-  useEffect(() => {
-    console.log(fields)
-  })
 
   useEffect(() => {
     getOptions();

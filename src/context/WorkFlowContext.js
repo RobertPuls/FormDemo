@@ -7,8 +7,6 @@ const WorkFlowContext = React.createContext();
 
 export const useWorkFlowContext = () => useContext(WorkFlowContext);
 
-// TODO: make dropdowns reset when selecting a different workflow
-// TODO: remove helpers
 export const WorkFlowProvider = ({children}) => {
   const [workFlowTypes, setWorkFlowTypes] = useState([]);
   const [photoTypes, setPhotoTypes] = useState([]);

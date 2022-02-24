@@ -35,8 +35,10 @@ export const fetchPhotoTypes = async () => baseFetch(PHOTO_TYPES_URL);
 
 export const fetchWorkFlowTypes = async () => baseFetch(WORKFLOWS_TYPES_URL);
 
-export const fetchModels = async (search) => baseFetch(MODELS_URL, search ? `?search=${search}` : undefined);
+// export const fetchModels = async (search) => baseFetch(MODELS_URL, search ? `?search=${search}` : undefined);
 
-export const fetchTags = async () => baseFetch(TAGGING_URL);
+export const fetchModels = async (query) => baseFetch(MODELS_URL, query);
+
+export const fetchTags = async (query) => baseFetch(TAGGING_URL, query);
 
 export const postWorkflow = async (data) => basePost(WORKFLOWS_URL, data)

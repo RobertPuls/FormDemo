@@ -1,0 +1,1 @@
+export const buildModelQuery = ({search, pageNumber, pageSize}) => (`?${pageNumber ? `page_number=${pageNumber}` : ''}${pageSize ? `&page_size=${pageSize}` : ''}${search ? `&search=${search}` : ''}`);
