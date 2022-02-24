@@ -20,23 +20,22 @@ export const QUEUE_STRING = 'queue'
 
 export const MODEL_STRING = 'model'
 
-// TODO: rename to something better
 const SEGMENTATION_TYPE = {
   type: SEGMENTATION_STRING,
   endpoint: MODEL_STRING,
-  name: 'segmentation'
+  name: 'Segmentation'
 }
 
 const IDENTIFICATION_TYPE = {
   type: IDENTIFICATION_STRING,
   endpoint: MODEL_STRING,
-  name: 'identification'
+  name: 'Identification'
 }
 
 const TAGGING_TYPE = {
   type: TAGGING_STRING,
   endpoint: QUEUE_STRING,
-  name: 'tagging system'
+  name: 'Tagging System'
 }
 
 export const SCHEMA = {
